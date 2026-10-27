@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>BMG Office Relocation North Wireframe</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+<style>
+  :root { --ink:#111; --mid:#777; --line:#bbb; --band:#ececec; --ph:#d9d9d9; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#fff; color:var(--ink); font:14px/1.5 Poppins, Helvetica, Arial, sans-serif; }
+  h1,h2,h3,p { margin:0; }
+  .doc-head { max-width:1596px; margin:0 auto; padding:32px 16px 8px; }
+  .doc-head h1 { font-size:22px; }
+  .doc-head p { color:var(--mid); font-size:13px; }
+  .legend { display:flex; gap:20px; flex-wrap:wrap; margin-top:12px; font-size:12px; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+
+  /* section row: 1280px frame with dev notes in a right-hand column */
+  .row { max-width:1596px; margin:0 auto 8px; padding:0 16px; display:grid; grid-template-columns:minmax(0,1280px) 260px; gap:24px; }
+  .notes { padding-top:14px; font-size:12px; color:#333; }
+  .notes .n { display:flex; gap:8px; margin-bottom:10px; }
+  .notes b.tag { flex:none; width:22px; height:22px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .secname { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mid); padding:18px 0 4px; }
+
+  .page { border:1px solid var(--ink); background:#fff; width:100%; max-width:1280px; margin:0 auto; }
+  .row .page { border-top:1px solid var(--ink) !important; }
+  .row .page + .page { border-top:0 !important; }
+  .fold { display:flex; flex-direction:column; aspect-ratio:16/9; }
+  .fold .hero { flex:1; align-items:center; padding:0 80px; }
+  .band { background:var(--band); }
+  .inner { max-width:760px; margin:0 auto; padding:40px 24px; }
+  .inner.wide { max-width:960px; }
+  .center { text-align:center; }
+
+  .ph { background:var(--ph); border:1px dashed #888; display:flex; align-items:center; justify-content:center; color:#555; font-size:12px; text-align:center; }
+  .btn { display:inline-block; background:var(--ink); color:#fff; border-radius:999px; padding:10px 24px; font-weight:600; font-size:13px; }
+  .btn.ghost { background:#fff; color:var(--ink); border:1.5px solid var(--ink); }
+  .btn.block { display:block; text-align:center; width:100%; }
+  .circle { width:28px; height:28px; border-radius:50%; border:1.5px solid var(--ink); display:inline-block; vertical-align:middle; }
+  .stars { letter-spacing:2px; font-size:16px; }
+  .small { font-size:12px; color:#444; }
+  .muted { color:var(--mid); }
+  .todo { background:repeating-linear-gradient(45deg,#fff,#fff 6px,#eee 6px,#eee 12px); border:1px dashed #666; padding:2px 6px; font-size:12px; }
+
+  /* header */
+  .hdr { position:relative; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 24px; border-bottom:1px solid var(--ink); background:#fff; }
+  .hdr .logo { width:110px; height:34px; }
+  .hdr .right { display:flex; align-items:center; gap:16px; }
+  .hdr .phone { font-weight:600; }
+
+  /* hero */
+  .hero { display:grid; grid-template-columns:1.15fr 1fr; gap:32px; align-items:start; padding:48px 32px; }
+  .hero h2 { font-size:40px; line-height:1.15; font-weight:300; margin-bottom:16px; }
+  .hero h2 b { font-weight:600; }
+  .hero .sub { margin-bottom:20px; }
+  .trust { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; }
+  .trust .ph { height:40px; padding:0 12px; }
+
+  .form { border:1.5px solid var(--ink); padding:24px; background:#fff; }
+  .form h3 { font-size:18px; margin-bottom:14px; }
+  .field { margin-bottom:12px; }
+  .field label { display:block; font-size:12px; font-weight:600; margin-bottom:3px; }
+  .field .box { border:1px solid #666; height:36px; padding:6px 10px; color:var(--mid); font-size:12px; display:flex; justify-content:space-between; }
+  .form .small { margin-top:10px; }
+
+  .quotes { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .quote p { font-size:13px; }
+  .cases { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:24px; text-align:left; }
+  .case .ph { height:190px; margin-bottom:12px; }
+  .case h3 { font-size:15px; margin-bottom:4px; }
+  tr.local td { font-weight:600; background:var(--band); }
+  .quote { border:1px solid var(--line); background:#fff; padding:16px; }
+  .quote p { font-style:italic; margin-bottom:8px; }
+  .logos { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:12px; }
+  .logos .ph { height:44px; width:150px; }
+
+  .tl-wrap { display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:start; margin:28px 0; text-align:left; }
+  .tl-wrap .ph { position:sticky; top:90px; min-height:420px; }
+  .timeline { position:relative; max-width:560px; text-align:left; }
+  .timeline::before { content:""; position:absolute; left:23px; top:8px; bottom:8px; border-left:2px solid var(--ink); }
+  .tl { position:relative; display:grid; grid-template-columns:48px 1fr; gap:20px; margin-bottom:28px; }
+  .tl:last-child { margin-bottom:0; }
+  .tl .dot { position:relative; z-index:1; width:48px; height:48px; border-radius:50%; border:2px solid var(--ink); background:#fff; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .tl > div:last-child { transform-origin:left center; transition:transform .3s ease, opacity .3s ease; opacity:.55; }
+  .tl .dot { transition:background .3s ease, color .3s ease, transform .3s ease; }
+  .tl.active > div:last-child { transform:scale(1.06); opacity:1; }
+  .tl.active .dot { background:var(--ink); color:#fff; transform:scale(1.1); }
+  .tl:last-child .dot { background:#fff; color:var(--ink); }
+  .tl:last-child.active .dot { background:var(--ink); color:#fff; }
+  .tl h3 { font-size:15px; margin-bottom:2px; }
+  @media (prefers-reduced-motion:reduce) { .tl *, .tl { transition:none !important; } .tl.active > div:last-child, .tl.active .dot { transform:none; } }
+
+  .why { display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:24px; text-align:left; align-items:stretch; }
+  .why .ph { min-height:360px; height:100%; }
+  .why-list { display:grid; grid-template-rows:repeat(4,1fr); }
+  .why-list > div { display:flex; flex-direction:column; justify-content:center; padding:12px 0; border-top:1px solid var(--ink); }
+  .why-list > div:first-child { border-top:0; }
+  .why-list h3 { font-size:15px; margin-bottom:4px; }
+
+  table { width:100%; border-collapse:collapse; margin-top:20px; background:#fff; }
+  th, td { border:1px solid var(--ink); padding:10px 12px; text-align:left; font-size:13px; }
+  th { background:var(--band); }
+
+  .faq { border-top:1px solid var(--ink); margin-top:20px; }
+  .faq div { border-bottom:1px solid var(--ink); padding:12px 0; display:flex; justify-content:space-between; font-weight:600; }
+  .faq .ans { display:block; font-weight:400; color:#333; padding:0; border:0; margin-top:4px; }
+  .faq .item { display:block; }
+  .faq .item .q { display:flex; justify-content:space-between; font-weight:600; }
+
+  .closing { background:var(--ink); color:#fff; }
+  .closing .btn { background:#fff; color:var(--ink); }
+  .foot { padding:18px 24px; font-size:12px; color:var(--mid); display:flex; justify-content:space-between; border-top:1px solid var(--ink); }
+
+  .mobile-wrap { max-width:1596px; margin:32px auto 0; padding:0 16px; }
+  .phones { display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; margin-top:12px; }
+  .phone-frame { width:300px; border:2px solid var(--ink); border-radius:24px; overflow:hidden; background:#fff; }
+  .phone-frame .hdr { padding:10px 12px; }
+  .phone-frame .pad { padding:16px 14px; }
+  .phone-frame h2 { font-size:22px; font-weight:300; line-height:1.2; margin-bottom:10px; }
+  .phone-frame h2 b { font-weight:600; }
+  .sticky-bar { position:relative; border-top:1px solid var(--ink); display:grid; grid-template-columns:1fr 1.4fr; gap:8px; padding:10px; background:#fff; }
+  .sticky-bar .btn { text-align:center; padding:9px 8px; font-size:12px; }
+
+  .thanks { text-align:center; padding:48px 24px; }
+
+  @media (max-width:900px) {
+    .row { grid-template-columns:1fr; gap:0; }
+    .notes { padding:8px 0 16px; }
+    .fold { aspect-ratio:auto; }
+    .fold .hero { padding:28px 16px; }
+    .hero { grid-template-columns:1fr; padding:28px 16px; }
+    .hero h2 { font-size:26px; }
+    .quotes, .cases { grid-template-columns:1fr; }
+    .why, .tl-wrap { grid-template-columns:1fr; gap:24px; }
+    .tl-wrap .ph { position:static; min-height:200px; order:-1; }
+    .why .ph { min-height:200px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-head">
+  <h1>BMG Office Relocation North: PPC landing page wireframe</h1>
+  <p>Black and white structural wireframe for the developer. Copy is final unless marked as a placeholder. Source of truth for wording: <code>source/Office relocation North landing page_Google Ads campaign.docx</code>. Draft 27 Oct 2026.</p>
+  <p style="margin-top:6px"><a href="index.html">&larr; All variants</a> &nbsp;|&nbsp; Other variant: <a href="midlands.html">Office Relocation Midlands</a></p>
+  <div class="legend">
+    <span><span class="ph" style="width:34px;height:20px"></span> image / logo placeholder</span>
+    <span><span class="btn" style="padding:3px 12px;font-size:11px">Button</span> primary CTA (all go to the form)</span>
+    <span><span class="todo">placeholder</span> copy still to come from BMG</span>
+  </div>
+</div>
+
+<!-- GLOBAL RULES -->
+<div class="row">
+  <div>
+    <div class="secname">Page-wide rules</div>
+    <div class="page"><div class="inner" style="padding:20px 24px;max-width:none">
+      <ul style="margin:0;padding-left:18px">
+        <li>This is the <b>North</b> variant (Leeds, Manchester and the wider North of England). Same layout as the other variant; the location copy, phone, social proof, recent moves, logo strip and local office table differ.</li>
+        <li><b>Page title:</b> Office relocation in the North | Free site survey | Business Moves Group<br><b>Meta description:</b> Planning an office move in Leeds, Manchester or across the North? Book a free site survey with a written report and recommendations, with no obligation to move with us.</li>
+        <li><code>&lt;meta name="robots" content="noindex"&gt;</code>, excluded from XML sitemap, no links to it from the main site, canonical to itself.</li>
+        <li>No main site navigation. Only logo, phone and CTA in the header, so there are no exits other than the Google Business Profile link.</li>
+        <li>Every button on the page scrolls to the form (desktop) or jumps to it (mobile). The only alternative action is calling.</li>
+        <li>Frames are drawn at 1280px wide. Content column is narrow (about 760px) like the BMG homepage; wider sections use about 960px. The hero frame keeps its 16:9 ratio at any width. Below about 1600px viewport width the frames shrink to fit beside the notes rather than staying at 1280.</li>
+      </ul>
+    </div></div>
+  </div>
+  <div class="notes"><div class="secname">Dev notes</div>
+    <div class="n"><b class="tag">i</b><span>Style references from businessmoves.com: Poppins, pill buttons, round icon buttons, grey section bands, 3-column tile grids.</span></div>
+  </div>
+</div>
+
+<!-- 1 HEADER + 2 HERO -->
+<div class="row">
+  <div>
+    <div class="secname">Desktop: page frames are 1280px wide. The first frame (header + hero) is exactly 16:9 (1280 x 720), i.e. the above-the-fold view.</div>
+    <div class="page fold">
+
+      <div class="hdr">
+        <div class="ph logo">BMG logo</div>
+        <div class="right">
+          <span class="phone">&#9742; 0113 236 0136</span>
+          <span class="btn">Book your free site survey</span>
+        </div>
+      </div>
+
+      <div class="hero">
+        <div>
+          <h2><b>Planning an office move in the North?</b> Start with a free site survey</h2>
+          <p class="sub">One of our move specialists from our Leeds team will visit your site, look at everything involved and give you a written report with our recommendations. It's free, and there's no obligation to use us for your move.</p>
+          <span class="btn">Book your free site survey</span>
+          <div style="margin-top:18px;display:flex;align-items:center;gap:10px">
+            <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <span class="small"><span class="todo">x.x</span> from <span class="todo">nn</span> Google reviews &rarr; <u>Google Business Profile</u></span>
+          </div>
+          <div class="trust"><span class="todo" style="flex-basis:100%">Check ISO certifications with BMG and display the official marks properly</span>
+            <div class="ph">ISO 9001</div><div class="ph">ISO 14001</div><div class="ph">ISO 45001</div><div class="ph">BAR member</div>
+          </div>
+          <p class="small" style="margin-top:8px">ISO 9001, 14001 and 45001 certified | British Association of Removers member | Local team for the North based in Leeds, with national coverage from Reading, Halesowen and Glasgow.</p>
+        </div>
+
+        <div class="form">
+          <h3>Book your free site survey</h3>
+          <div class="field"><label>Full name *</label><div class="box">Text</div></div>
+          <div class="field"><label>Company *</label><div class="box">Text</div></div>
+          <div class="field"><label>Work email *</label><div class="box">Email</div></div>
+          <div class="field"><label>Phone *</label><div class="box">Tel</div></div>
+          <div class="field"><label>When are you planning to move?</label><div class="box"><span>Select</span><span>&#9662;</span></div>
+            <p class="small muted">Within 3 months / 3 to 6 months / 6 to 12 months / Not sure yet</p></div>
+          <span class="btn block">Request my site survey</span>
+          <p class="small">We'll be in touch within one working day to arrange a time that suits you. No obligation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname">Dev notes</div>
+    <div class="n"><b class="tag">1</b><span><b>Header.</b> Sticky on scroll. Phone is a <code>tel:</code> link and fires a click-to-call event. Button anchors to the form. Phone number shown follows the location variant (see Local offices).</span></div>
+    <div class="n"><b class="tag">2</b><span><b>Hero.</b> Headline, subhead and form side by side. Header + hero together fill the 1280x720 (16:9) fold, so the whole form and its button must be visible without scrolling. On mobile the form drops below the subhead.</span></div>
+    <div class="n"><b class="tag">3</b><span><b>Review stars.</b> New element, not in the copy doc. Competitors show ratings in the hero. Rating, count and Google Business Profile link to come from BMG.</span></div>
+    <div class="n"><b class="tag">4</b><span><b>Form.</b> 5 fields, all required except the dropdown. Submit fires the lead-form event, then redirects to the thank-you page. Spam protection must not use a visible CAPTCHA.</span></div>
+    <div class="n"><b class="tag">5</b><span><b>Trust badges. To check.</b> The ISO 9001, 14001 and 45001 certifications (and BAR membership) must be verified with BMG and displayed properly using the official certification marks, not text or placeholders. Confirm the certificates are current and which accreditations to show (the supplied logo set further down is a different group). The text line underneath is the fallback and alt text.</span></div>
+  </div>
+</div>
+
+<!-- 3 SOCIAL PROOF -->
+<div class="row">
+  <div>
+    <div class="page band" style="border-top:0">
+      <div class="inner wide">
+        <h2 class="center" style="font-size:24px;font-weight:600;margin-bottom:20px">What our clients say</h2>
+        <div class="quotes">
+          <div class="quote"><p>“I just wanted to say a massive thank you to you, Mark, and the BMG team for such a great job in clearing out our 1st floor contact centre. The project went like clockwork and the team you sent were very efficient and personable. Thank you again for a job well done and I’ll be in touch shortly when our stored furniture needs to be moved down to London.”</p><span class="small"><u>Major airline</u> based in northwest England</span></div>
+          <div class="quote"><p>“I would like to say a huge thank you to Colin and the team. There have certainly been some challenges for them today and they were so professional and accommodating!”</p><span class="small">Gayle Summerly, manager, people administration and operations at <u>Turnitin</u></span></div>
+          <div class="quote"><p>“We are really pleased to be working with BMG. We have a busy programme of works this summer and the service that is provided by BMG is always of high standard. BMG work closely with all of our teams in estates and facilities to ensure we are utilising their services efficiently, and often suggest combining works to bring down overall cost and resource. We look forward to another busy summer working with the team.”</p><span class="small">Victoria Riley, space and asset data manager, estates &amp; facilities, <u>Leeds Beckett University</u></span></div>
+        </div>
+        <p class="center small" style="margin-top:22px">Trusted by organisations including</p>
+        <div class="logos"><div class="ph">Newcastle College</div><div class="ph">Aviva</div><div class="ph">Leeds Beckett University</div><div class="ph">Allianz</div><div class="ph">Warrington’s Own Buses</div><div class="ph">Turnitin</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">6</b><span><b>Social proof.</b> Directly below the hero so it is seen by the second scroll. Three testimonial cards in a row on desktop, stacked on mobile. Quotes are specific to this location. Client and case study names in the copy link to the main-site case studies: decide whether to keep those links (they leave the landing page, so open in a new tab) or drop them to keep the page exit-free.</span></div>
+    <div class="n"><b class="tag">7</b><span><b>Logo strip.</b> Greyscale logos in a single centred row, wrapping on mobile. Logos differ per location. Confirm client permission before use.</span></div>
+  </div>
+</div>
+
+<!-- OUR WORK -->
+<div class="row">
+  <div>
+    <div class="page" style="border-top:0">
+      <div class="inner wide center">
+        <h2 style="font-size:24px;font-weight:600;margin-bottom:6px">Recent moves in the North</h2>
+        <p>A few of the projects our team in the North has delivered.</p>
+        <div class="cases">
+          <div class="case"><div class="ph">Photo: Leeds Building Society</div><h3>Leeds Building Society</h3><p class="small">We project-managed the Society's move of more than 900 colleagues from three sites into its refurbished head office on Sovereign Street in Leeds, covering move planning, furniture management, IT relocation and post-move support.</p></div>
+          <div class="case"><div class="ph">Photo: Aviva, including its Sheffield office</div><h3>Aviva, including its Sheffield office</h3><p class="small">Our work with Aviva, which included its Sheffield office, won the PFM Partners in Relocation award in 2020.</p></div>
+          <div class="case"><div class="ph">Photo: Newcastle College</div><h3>Newcastle College</h3><p class="small">Our work with ISS and Newcastle College saw a successful redistribution and recycling project for the organisations, creating the best environmental solutions with strong commercial benefits. As a result of BMG being able to deliver all works in-house, the project was delivered within the allocated time frames and forecasted costs.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">8</b><span><b>Recent moves.</b> New section. Three case study tiles in a 3-column grid, like the Services tiles on the BMG homepage: image on top, client name as heading, short description. One photo per project is needed from BMG. No links out, to keep the page exit-free (optional "Read the case study" link in a new tab if BMG want it).</span></div>
+  </div>
+</div>
+
+<!-- 4 SURVEY STEPS -->
+<div class="row">
+  <div>
+    <div class="page" style="border-top:0">
+      <div class="inner wide center">
+        <h2 style="font-size:24px;font-weight:600;margin-bottom:6px">What happens at your site survey</h2>
+        <p>A clear plan starts with a proper look at your space. Here's what to expect.</p>
+        <div class="tl-wrap">
+        <div class="timeline">
+          <div class="tl"><div class="dot">1</div><div><h3>We visit your site</h3><p class="small">A member of our team visits... <span class="todo">copy to complete</span></p></div></div>
+          <div class="tl"><div class="dot">2</div><div><h3>We assess what's involved</h3><p class="small">We record your furniture, IT and equipment, access points, floor types and any site-specific requirements, so nothing is left to guesswork.</p></div></div>
+          <div class="tl"><div class="dot">3</div><div><h3>You get a written report</h3><p class="small">You receive a written report with our recommendations for your move.</p></div></div>
+          <div class="tl"><div class="dot">4</div><div><h3>You decide what's next</h3><p class="small">The report is yours to keep, whether or not you choose to move with us.</p></div></div>
+        </div>
+        <div class="ph">Single image: surveyor on site with a client</div>
+        </div>
+        <span class="btn">Book your free site survey</span>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">9</b><span><b>Survey timeline (interactive).</b> This is the offer explained, so give it real weight. Vertical timeline: a continuous line down the left with a numbered circle marker per step, then title and text. As the visitor scrolls (or hovers or taps), the step in view scales up slightly (about 1.06) and its number circle fills black; the other steps fade back. Ease 0.3s, disabled for reduced-motion. Same behaviour on mobile, driven by scroll. One image sits to the right of the timeline (opposite side to the Why BMG image) and stays sticky while the steps scroll past; on mobile it moves above the timeline. Ideally a photo of a surveyor on site. Step 1 copy is truncated in the source doc.</span></div>
+    <div class="n"><b class="tag">10</b><span><b>Mid-page CTA.</b> Scrolls back up to the form.</span></div>
+  </div>
+</div>
+
+<!-- 5 WHY BMG -->
+<div class="row">
+  <div>
+    <div class="page band" style="border-top:0">
+      <div class="inner wide">
+        <h2 class="center" style="font-size:24px;font-weight:600">Why businesses move with us</h2>
+        <div class="why">
+          <div class="ph">Single image: BMG team / van / office move</div>
+          <div class="why-list">
+            <div><h3>One team from start to finish</h3><p class="small">Our own trained, security-checked people and our own vehicles deliver every move. Our team for the North is based in Leeds, so the team that plans your move is the team that delivers it.</p></div>
+            <div><h3>A single point of contact</h3><p class="small">A dedicated project manager keeps you informed at every stage, with an on-site move manager for larger projects.</p></div>
+            <div><h3>Experience you can rely on</h3><p class="small">We move everyone from single-site SMEs to multi-site organisations, and 80% of our work comes from repeat clients.</p></div>
+            <div><h3>Certified to recognised standards</h3><p class="small">ISO 9001, ISO 14001 and ISO 45001 certified, and accredited to BS 8522, the British Association of Removers standard for commercial moving.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">11</b><span><b>Why BMG.</b> One image on the left, four equally spaced headings and descriptions on the right, separated by thin rules. Image height matches the text column. On mobile the image sits on top (shorter) and the four items stack beneath. Needs one strong photo from BMG.</span></div>
+  </div>
+</div>
+
+<!-- 6 OFFICES -->
+<div class="row">
+  <div>
+    <div class="page" style="border-top:0">
+      <div class="inner wide">
+        <h2 class="center" style="font-size:24px;font-weight:600;margin-bottom:6px">Your local team for the North</h2>
+        <p class="center">Our team for the North is based at Offco House in Pudsey, Leeds, and supports office moves across Leeds, Manchester, Yorkshire, Lancashire and the wider North of England. With offices in Reading, Halesowen and Glasgow too, we can support your move anywhere in the UK.</p>
+        <table>
+          <tr><th>Office</th><th>Covering</th><th>Phone</th></tr>
+          <tr class="local"><td>Leeds</td><td>The North</td><td>0113 236 0136</td></tr>
+          <tr><td>Reading</td><td>London and the South East</td><td>0118 933 6600</td></tr>
+          <tr><td>Halesowen</td><td>The Midlands</td><td>0121 559 1122</td></tr>
+          <tr><td>Glasgow</td><td>Scotland</td><td>0141 773 4829</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">12</b><span><b>Local team.</b> The local office is listed first and highlighted (bold, grey row). Each phone is a <code>tel:</code> link with click-to-call tracking. Stacked cards on mobile. Consider a photo of the local team or office.</span></div>
+  </div>
+</div>
+
+<!-- TRUST LOGOS -->
+<div class="row">
+  <div>
+    <div class="page" style="border-top:0">
+      <div class="inner wide center" style="padding:28px 24px">
+        <img src="assets/trust-logos.png" alt="Accreditations: Workplace Relocation Group (BAR), SafeContractor Approved, OMA, Certified Office Mover, BS 8522 UKAS Quality Assured" style="display:block;width:100%;max-width:960px;height:auto;margin:0 auto;filter:grayscale(1)">
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">13</b><span><b>Accreditation logos.</b> Supplied image (<code>assets/trust-logos.png</code>, from source/Trust Logos.png): WRG / BAR, SafeContractor, OMA, Certified Office Mover, BS 8522 UKAS. Shown greyscale here for the wireframe; use full colour in the build. Build as five separate logos in one row (not one flat image) so they wrap to 3 + 2 on mobile, with alt text on each. The same set can replace the placeholder badges in the hero.</span></div>
+  </div>
+</div>
+
+<!-- 7 FAQ + CLOSING -->
+<div class="row">
+  <div>
+    <div class="page band" style="border-top:0">
+      <div class="inner">
+        <h2 class="center" style="font-size:24px;font-weight:600">FAQs</h2>
+        <div class="faq">
+          <div class="item"><div class="q"><span>Is the site survey really free?</span><span>&minus;</span></div><span class="ans">Yes. There's no charge for the visit or the report, and no obligation to use us for your move.</span></div>
+          <div class="item"><div class="q"><span>How long does the survey take?</span><span>+</span></div><span class="ans todo">answer needed from BMG</span></div>
+          <div class="item"><div class="q"><span>When will I receive my report?</span><span>+</span></div><span class="ans todo">answer needed from BMG</span></div>
+          <div class="item"><div class="q"><span>Do you handle moves of any size?</span><span>+</span></div></div>
+          <div class="item"><div class="q"><span>Which areas do you cover?</span><span>+</span></div></div>
+        </div>
+        <p class="small muted" style="margin-top:8px">Answers: "Yes. We work with organisations of every size, from single-site SMEs to multi-site businesses." / "Our team for the North covers Leeds, Manchester, Yorkshire, Lancashire and the wider North of England, and we work across the UK from our offices in Reading, Halesowen, Leeds and Glasgow."</p>
+      </div>
+    </div>
+    <div class="page closing" style="border-top:0">
+      <div class="inner center">
+        <h2 style="font-size:26px;font-weight:600;margin-bottom:8px">Ready to plan your move in the North?</h2>
+        <p style="margin-bottom:18px">Book a free site survey and get a clear picture of what your move involves, with a written report and recommendations from our team.</p>
+        <span class="btn">Book your free site survey</span>
+        <p style="margin-top:14px">Or call our team in the North on 0113 236 0136.</p>
+      </div>
+    </div>
+    <div class="page" style="border-top:0"><div class="foot"><span>&copy; Business Moves Group</span><span>Privacy policy | Cookie settings</span></div></div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">14</b><span><b>FAQ accordion.</b> First item open by default. Mark up with FAQPage schema is not needed (noindex).</span></div>
+    <div class="n"><b class="tag">15</b><span><b>Closing CTA.</b> Dark band, scrolls to the form. The phone line is a <code>tel:</code> link.</span></div>
+    <div class="n"><b class="tag">16</b><span><b>Footer.</b> Minimal: copyright, privacy, cookie settings. No site navigation.</span></div>
+  </div>
+</div>
+
+<!-- MOBILE -->
+<div class="mobile-wrap">
+  <div class="secname">Mobile, 375px wide (hero and sticky bar)</div>
+  <div class="phones">
+    <div class="phone-frame">
+      <div class="hdr"><div class="ph logo" style="width:80px;height:28px">BMG</div><span class="phone">&#9742; Call</span></div>
+      <div class="pad">
+        <h2><b>Planning an office move in the North?</b> Start with a free site survey</h2>
+        <p class="small" style="margin-bottom:12px">One of our move specialists from our Leeds team will visit your site... free, no obligation to use us.</p>
+        <span class="btn block">Book your free site survey</span>
+        <p class="small center" style="margin-top:10px"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Google reviews</p>
+        <div class="form" style="margin-top:12px;padding:14px">
+          <h3 style="font-size:15px">Book your free site survey</h3>
+          <div class="field"><label>Full name *</label><div class="box">Text</div></div>
+          <div class="field"><label>Company *</label><div class="box">Text</div></div>
+          <p class="small muted">...5 fields, full width</p>
+        </div>
+      </div>
+      <div class="sticky-bar"><span class="btn ghost">&#9742; Call</span><span class="btn">Book survey</span></div>
+    </div>
+    <div class="notes" style="max-width:420px">
+      <div class="n"><b class="tag">17</b><span><b>Mobile order.</b> Header, H1, subhead, button, stars, form, trust badges, then the rest as desktop. Stack everything into one column.</span></div>
+      <div class="n"><b class="tag">18</b><span><b>Sticky bottom bar (mobile only).</b> Two buttons fixed to the bottom: Call (<code>tel:</code>) and Book survey (jumps to the form). Hide the Book button when the form is on screen.</span></div>
+      <div class="n"><b class="tag">19</b><span><b>Form fields.</b> Use the correct input types and autocomplete attributes (name, organization, email, tel) so phones autofill. Tap targets at least 44px high.</span></div>
+      <div class="n"><b class="tag">20</b><span><b>Speed.</b> Paid traffic is mostly mobile. Keep the hero image-free, lazy-load everything below the fold and aim for LCP under 2.5s.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- THANK YOU -->
+<div class="row" style="margin-top:32px;margin-bottom:60px">
+  <div>
+    <div class="secname">Thank-you page (separate URL, noindex)</div>
+    <div class="page">
+      <div class="hdr"><div class="ph logo">BMG logo</div><span class="phone">&#9742; 0113 236 0136</span></div>
+      <div class="thanks">
+        <div class="circle" style="width:56px;height:56px;margin-bottom:12px"></div>
+        <h2 style="font-size:28px;font-weight:600;margin-bottom:10px">Thank you, your site survey request is with us</h2>
+        <p style="max-width:560px;margin:0 auto 18px">A member of our team will be in touch to arrange a time for your visit. If you'd like to speak to someone sooner, call your nearest office.</p>
+        <p class="small">The North (Leeds): 0113 236 0136 | Reading: 0118 933 6600 | Halesowen: 0121 559 1122 | Glasgow: 0141 773 4829</p>
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">21</b><span><b>Thank-you page.</b> Its own URL so it can be the Google Ads conversion trigger and GA4 key event. No nav, no further CTA. Phone numbers are <code>tel:</code> links.</span></div>
+    <div class="n"><b class="tag">22</b><span><b>Tracking.</b> Events needed: form submit, thank-you page view, click-to-call (header, offices, closing CTA, mobile bar), click on Google Business Profile link. Server-side tagging may follow.</span></div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var steps = document.querySelectorAll('.tl');
+    if (!steps.length) return;
+    function setActive(el) { steps.forEach(function (t) { t.classList.toggle('active', t === el); }); }
+    setActive(steps[0]);
+    steps.forEach(function (t) {
+      t.addEventListener('mouseenter', function () { setActive(t); });
+      t.addEventListener('click', function () { setActive(t); });
+    });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) setActive(e.target); });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      steps.forEach(function (t) { io.observe(t); });
+    }
+  })();
+</script>
+</body>
+</html>
