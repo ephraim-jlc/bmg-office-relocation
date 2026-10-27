@@ -11,20 +11,24 @@
   * { box-sizing:border-box; }
   body { margin:0; background:#fff; color:var(--ink); font:14px/1.5 Poppins, Helvetica, Arial, sans-serif; }
   h1,h2,h3,p { margin:0; }
-  .doc-head { max-width:1180px; margin:0 auto; padding:32px 16px 8px; }
+  .doc-head { max-width:1596px; margin:0 auto; padding:32px 16px 8px; }
   .doc-head h1 { font-size:22px; }
   .doc-head p { color:var(--mid); font-size:13px; }
   .legend { display:flex; gap:20px; flex-wrap:wrap; margin-top:12px; font-size:12px; }
   .legend span { display:inline-flex; align-items:center; gap:6px; }
 
-  /* section row: wireframe + dev notes */
-  .row { max-width:1180px; margin:0 auto; padding:0 16px; display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:24px; margin-bottom:0; }
+  /* section row: 1280px frame with dev notes in a right-hand column */
+  .row { max-width:1596px; margin:0 auto 8px; padding:0 16px; display:grid; grid-template-columns:minmax(0,1280px) 260px; gap:24px; }
   .notes { padding-top:14px; font-size:12px; color:#333; }
   .notes .n { display:flex; gap:8px; margin-bottom:10px; }
   .notes b.tag { flex:none; width:22px; height:22px; border-radius:50%; background:var(--ink); color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; }
   .secname { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--mid); padding:18px 0 4px; }
 
-  .page { border:1px solid var(--ink); background:#fff; }
+  .page { border:1px solid var(--ink); background:#fff; width:100%; max-width:1280px; margin:0 auto; }
+  .row .page { border-top:1px solid var(--ink) !important; }
+  .row .page + .page { border-top:0 !important; }
+  .fold { display:flex; flex-direction:column; aspect-ratio:16/9; }
+  .fold .hero { flex:1; align-items:center; padding:0 80px; }
   .band { background:var(--band); }
   .inner { max-width:760px; margin:0 auto; padding:40px 24px; }
   .inner.wide { max-width:960px; }
@@ -48,7 +52,7 @@
 
   /* hero */
   .hero { display:grid; grid-template-columns:1.15fr 1fr; gap:32px; align-items:start; padding:48px 32px; }
-  .hero h2 { font-size:34px; line-height:1.15; font-weight:300; margin-bottom:16px; }
+  .hero h2 { font-size:40px; line-height:1.15; font-weight:300; margin-bottom:16px; }
   .hero h2 b { font-weight:600; }
   .hero .sub { margin-bottom:20px; }
   .trust { margin-top:20px; display:flex; flex-wrap:wrap; gap:8px; }
@@ -104,7 +108,7 @@
   .closing .btn { background:#fff; color:var(--ink); }
   .foot { padding:18px 24px; font-size:12px; color:var(--mid); display:flex; justify-content:space-between; border-top:1px solid var(--ink); }
 
-  .mobile-wrap { max-width:1180px; margin:32px auto 0; padding:0 16px; }
+  .mobile-wrap { max-width:1596px; margin:32px auto 0; padding:0 16px; }
   .phones { display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; margin-top:12px; }
   .phone-frame { width:300px; border:2px solid var(--ink); border-radius:24px; overflow:hidden; background:#fff; }
   .phone-frame .hdr { padding:10px 12px; }
@@ -119,6 +123,8 @@
   @media (max-width:900px) {
     .row { grid-template-columns:1fr; gap:0; }
     .notes { padding:8px 0 16px; }
+    .fold { aspect-ratio:auto; }
+    .fold .hero { padding:28px 16px; }
     .hero { grid-template-columns:1fr; padding:28px 16px; }
     .hero h2 { font-size:26px; }
     .quotes { grid-template-columns:1fr 1fr; }
@@ -145,13 +151,13 @@
 <div class="row">
   <div>
     <div class="secname">Page-wide rules</div>
-    <div class="page"><div class="inner" style="padding:20px 24px">
+    <div class="page"><div class="inner" style="padding:20px 24px;max-width:none">
       <ul style="margin:0;padding-left:18px">
         <li>One page template, two location variants: <b>Birmingham</b> and <b>Manchester</b>. Same layout, city swapped into H1, title and phone.</li>
         <li><code>&lt;meta name="robots" content="noindex"&gt;</code>, excluded from XML sitemap, no links to it from the main site, canonical to itself.</li>
         <li>No main site navigation. Only logo, phone and CTA in the header, so there are no exits other than the Google Business Profile link.</li>
         <li>Every button on the page scrolls to the form (desktop) or jumps to it (mobile). The only alternative action is calling.</li>
-        <li>Content column is narrow (about 760px) like the BMG homepage; hero and offices are wider (about 960px).</li>
+        <li>Frames are drawn at 1280px wide. Content column is narrow (about 760px) like the BMG homepage; wider sections use about 960px. The hero frame keeps its 16:9 ratio at any width. Below about 1600px viewport width the frames shrink to fit beside the notes rather than staying at 1280.</li>
       </ul>
     </div></div>
   </div>
@@ -163,8 +169,8 @@
 <!-- 1 HEADER + 2 HERO -->
 <div class="row">
   <div>
-    <div class="secname">Desktop, 1280px wide</div>
-    <div class="page">
+    <div class="secname">Desktop: page frames are 1280px wide. The first frame (header + hero) is exactly 16:9 (1280 x 720), i.e. the above-the-fold view.</div>
+    <div class="page fold">
 
       <div class="hdr">
         <div class="ph logo">BMG logo</div>
@@ -183,7 +189,7 @@
             <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             <span class="small"><span class="todo">x.x</span> from <span class="todo">nn</span> Google reviews &rarr; <u>Google Business Profile</u></span>
           </div>
-          <div class="trust">
+          <div class="trust"><span class="todo" style="flex-basis:100%">Check ISO certifications with BMG and display the official marks properly</span>
             <div class="ph">ISO 9001</div><div class="ph">ISO 14001</div><div class="ph">ISO 45001</div><div class="ph">BAR member</div>
           </div>
           <p class="small" style="margin-top:8px">ISO 9001, 14001 and 45001 certified | British Association of Removers member | National coverage with bases in Reading, Halesowen, Leeds and Glasgow.</p>
@@ -205,10 +211,10 @@
   </div>
   <div class="notes"><div class="secname">Dev notes</div>
     <div class="n"><b class="tag">1</b><span><b>Header.</b> Sticky on scroll. Phone is a <code>tel:</code> link and fires a click-to-call event. Button anchors to the form. Phone number shown follows the location variant (see Local offices).</span></div>
-    <div class="n"><b class="tag">2</b><span><b>Hero.</b> Headline, subhead and form side by side so the form is visible without scrolling at 1280x720. On mobile the form drops below the subhead.</span></div>
+    <div class="n"><b class="tag">2</b><span><b>Hero.</b> Headline, subhead and form side by side. Header + hero together fill the 1280x720 (16:9) fold, so the whole form and its button must be visible without scrolling. On mobile the form drops below the subhead.</span></div>
     <div class="n"><b class="tag">3</b><span><b>Review stars.</b> New element, not in the copy doc. Competitors show ratings in the hero. Rating, count and Google Business Profile link to come from BMG.</span></div>
     <div class="n"><b class="tag">4</b><span><b>Form.</b> 5 fields, all required except the dropdown. Submit fires the lead-form event, then redirects to the thank-you page. Spam protection must not use a visible CAPTCHA.</span></div>
-    <div class="n"><b class="tag">5</b><span><b>Trust badges.</b> Use the supplied certification logos in a row; the text line underneath is the fallback and alt text.</span></div>
+    <div class="n"><b class="tag">5</b><span><b>Trust badges. To check.</b> The ISO 9001, 14001 and 45001 certifications (and BAR membership) must be verified with BMG and displayed properly using the official certification marks, not text or placeholders. Confirm the certificates are current and which accreditations to show (the supplied logo set further down is a different group). The text line underneath is the fallback and alt text.</span></div>
   </div>
 </div>
 
@@ -308,6 +314,20 @@
   </div>
 </div>
 
+<!-- TRUST LOGOS -->
+<div class="row">
+  <div>
+    <div class="page" style="border-top:0">
+      <div class="inner wide center" style="padding:28px 24px">
+        <img src="assets/trust-logos.png" alt="Accreditations: Workplace Relocation Group (BAR), SafeContractor Approved, OMA, Certified Office Mover, BS 8522 UKAS Quality Assured" style="display:block;width:100%;max-width:960px;height:auto;margin:0 auto;filter:grayscale(1)">
+      </div>
+    </div>
+  </div>
+  <div class="notes"><div class="secname" style="visibility:hidden">x</div>
+    <div class="n"><b class="tag">12</b><span><b>Accreditation logos.</b> Supplied image (<code>assets/trust-logos.png</code>, from source/Trust Logos.png): WRG / BAR, SafeContractor, OMA, Certified Office Mover, BS 8522 UKAS. Shown greyscale here for the wireframe; use full colour in the build. Build as five separate logos in one row (not one flat image) so they wrap to 3 + 2 on mobile, with alt text on each. The same set can replace the placeholder badges in the hero.</span></div>
+  </div>
+</div>
+
 <!-- 7 FAQ + CLOSING -->
 <div class="row">
   <div>
@@ -335,9 +355,9 @@
     <div class="page" style="border-top:0"><div class="foot"><span>&copy; Business Moves Group</span><span>Privacy policy | Cookie settings</span></div></div>
   </div>
   <div class="notes"><div class="secname" style="visibility:hidden">x</div>
-    <div class="n"><b class="tag">12</b><span><b>FAQ accordion.</b> First item open by default. Mark up with FAQPage schema is not needed (noindex).</span></div>
-    <div class="n"><b class="tag">13</b><span><b>Closing CTA.</b> Dark band, scrolls to the form. The phone line is a <code>tel:</code> link.</span></div>
-    <div class="n"><b class="tag">14</b><span><b>Footer.</b> Minimal: copyright, privacy, cookie settings. No site navigation.</span></div>
+    <div class="n"><b class="tag">13</b><span><b>FAQ accordion.</b> First item open by default. Mark up with FAQPage schema is not needed (noindex).</span></div>
+    <div class="n"><b class="tag">14</b><span><b>Closing CTA.</b> Dark band, scrolls to the form. The phone line is a <code>tel:</code> link.</span></div>
+    <div class="n"><b class="tag">15</b><span><b>Footer.</b> Minimal: copyright, privacy, cookie settings. No site navigation.</span></div>
   </div>
 </div>
 
@@ -362,10 +382,10 @@
       <div class="sticky-bar"><span class="btn ghost">&#9742; Call</span><span class="btn">Book survey</span></div>
     </div>
     <div class="notes" style="max-width:420px">
-      <div class="n"><b class="tag">15</b><span><b>Mobile order.</b> Header, H1, subhead, button, stars, form, trust badges, then the rest as desktop. Stack everything into one column.</span></div>
-      <div class="n"><b class="tag">16</b><span><b>Sticky bottom bar (mobile only).</b> Two buttons fixed to the bottom: Call (<code>tel:</code>) and Book survey (jumps to the form). Hide the Book button when the form is on screen.</span></div>
-      <div class="n"><b class="tag">17</b><span><b>Form fields.</b> Use the correct input types and autocomplete attributes (name, organization, email, tel) so phones autofill. Tap targets at least 44px high.</span></div>
-      <div class="n"><b class="tag">18</b><span><b>Speed.</b> Paid traffic is mostly mobile. Keep the hero image-free, lazy-load everything below the fold and aim for LCP under 2.5s.</span></div>
+      <div class="n"><b class="tag">16</b><span><b>Mobile order.</b> Header, H1, subhead, button, stars, form, trust badges, then the rest as desktop. Stack everything into one column.</span></div>
+      <div class="n"><b class="tag">17</b><span><b>Sticky bottom bar (mobile only).</b> Two buttons fixed to the bottom: Call (<code>tel:</code>) and Book survey (jumps to the form). Hide the Book button when the form is on screen.</span></div>
+      <div class="n"><b class="tag">18</b><span><b>Form fields.</b> Use the correct input types and autocomplete attributes (name, organization, email, tel) so phones autofill. Tap targets at least 44px high.</span></div>
+      <div class="n"><b class="tag">19</b><span><b>Speed.</b> Paid traffic is mostly mobile. Keep the hero image-free, lazy-load everything below the fold and aim for LCP under 2.5s.</span></div>
     </div>
   </div>
 </div>
@@ -385,8 +405,8 @@
     </div>
   </div>
   <div class="notes"><div class="secname" style="visibility:hidden">x</div>
-    <div class="n"><b class="tag">19</b><span><b>Thank-you page.</b> Its own URL so it can be the Google Ads conversion trigger and GA4 key event. No nav, no further CTA. Phone numbers are <code>tel:</code> links.</span></div>
-    <div class="n"><b class="tag">20</b><span><b>Tracking.</b> Events needed: form submit, thank-you page view, click-to-call (header, offices, closing CTA, mobile bar), click on Google Business Profile link. Server-side tagging may follow.</span></div>
+    <div class="n"><b class="tag">20</b><span><b>Thank-you page.</b> Its own URL so it can be the Google Ads conversion trigger and GA4 key event. No nav, no further CTA. Phone numbers are <code>tel:</code> links.</span></div>
+    <div class="n"><b class="tag">21</b><span><b>Tracking.</b> Events needed: form submit, thank-you page view, click-to-call (header, offices, closing CTA, mobile bar), click on Google Business Profile link. Server-side tagging may follow.</span></div>
   </div>
 </div>
 
